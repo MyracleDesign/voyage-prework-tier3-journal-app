@@ -1,3 +1,6 @@
+import 'package:client/note-form.dart';
+import 'package:client/note-list.dart';
+import 'package:flutter_web/cupertino.dart';
 import 'package:flutter_web/material.dart';
 
 void main() => runApp(MyApp());
@@ -7,9 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Digital Journal',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "Roboto"),
       home: MyHomePage(title: 'Digital Journal'),
     );
   }
@@ -26,12 +27,18 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
         actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              print("Login pressed");
+            },
+          ),
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 0, 30, 0),
+            padding: const EdgeInsets.fromLTRB(0, 0, 30, 0),
             child: IconButton(
-              icon: Icon(Icons.exit_to_app),
+              icon: Icon(Icons.person_add),
               onPressed: () {
-                print("Login pressed");
+                print("Register pressed");
               },
             ),
           )
@@ -42,15 +49,23 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            RichText(
-                text: TextSpan(
-                    text: "Digital Journal ",
-                    style: TextStyle(color: Colors.black, fontSize: 36.0),
-                    children: <TextSpan>[
-                  TextSpan(
-                      text: "| Create a note",
-                      style: TextStyle(color: Colors.grey, fontSize: 24.0))
-                ])),
+            Row(
+              children: <Widget>[
+                RichText(
+                  text: TextSpan(
+                      text: "Digital Journal ",
+                      style: TextStyle(color: Colors.black, fontSize: 36.0),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: "| Create a note",
+                            style: TextStyle(
+                                color: Color(0xff767e86), fontSize: 24.0))
+                      ]),
+                ),
+              ],
+            ),
+            NoteForm(),
+            NoteList()
           ],
         ),
       ),
