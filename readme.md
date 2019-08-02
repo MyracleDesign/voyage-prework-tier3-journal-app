@@ -2,7 +2,7 @@
 
 This project consist of a client application written with flutter web and a server application written in Dart. Please consider reading the further following readme,
  
-- [Client Readme](client/README.md)
+- [Client Readme](client/readme.md)
 - [Server Readme](server/README.md)
 
 ## Getting Started
