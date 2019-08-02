@@ -1,6 +1,9 @@
 # Dart / Flutter Digital Journal App
 
-One Paragraph of project description goes here
+This project consist of a client application written with flutter web and a server application written in Dart. Please consider reading the further following readme,
+ 
+- [Client Readme](client/README.md)
+- [Server Readme](server/README.md)
 
 ## Getting Started
 
