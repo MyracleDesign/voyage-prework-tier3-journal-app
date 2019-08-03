@@ -5,6 +5,9 @@ This project consist of a client application written with flutter web and a serv
 - [Client Readme](client/readme.md)
 - [Server Readme](server/README.md)
 
+You can find the a running version of this version on Heroku:
+- [Client](https://digital-journal-client.herokuapp.com)
+
 ## Getting Started
 
 You can start this project by start up the client and server.
@@ -74,7 +77,7 @@ Give an example
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Currently the deployment is handled via the [deployment.ps1](./scripts/deployment.ps1). It deploys the client and the server to Heroku if you have them in your remotes.
 
 ## Built With
 Thanks for all the great products that we can use
