@@ -7,6 +7,7 @@ class NotesService {
   static Future<List<NoteModel>> getAllNotes() async {
     final response = await http.get('http://localhost:8888/notes');
 
+    print(response.body);
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON.
       List<NoteModel> noteList = [];
