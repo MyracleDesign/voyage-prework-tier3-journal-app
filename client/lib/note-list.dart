@@ -1,7 +1,7 @@
+import 'package:client/app-service/notes-service.dart';
 import 'package:client/model/note-model.dart';
 import 'package:flutter_web/cupertino.dart';
 import 'package:flutter_web/material.dart';
-import 'package:uuid/uuid.dart';
 
 import 'note.dart';
 
@@ -13,13 +13,29 @@ class NoteList extends StatefulWidget {
 }
 
 class NoteListState extends State<NoteList> {
-  var notes = [
-    NoteModel(Uuid().v4(), "HeadText", "BodyText"),
-  ];
+  Future<List<NoteModel>> notes;
+
+  @override
+  void initState() {
+    super.initState();
+    notes = NotesService.getAllNotes();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        child: ListView(children: [for (var note in notes) Note(note)]));
+      child: FutureBuilder(
+        future: notes,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView(
+              children: [for (var note in snapshot.data) Note(note)],
+            );
+          } else {
+            return Text("No Notes here");
+          }
+        },
+      ),
+    );
   }
 }

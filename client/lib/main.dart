@@ -45,7 +45,7 @@ class MyHomePage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(120, 8, 120, 8),
+        padding: const EdgeInsets.all(8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[

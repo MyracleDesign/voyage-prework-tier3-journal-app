@@ -1,11 +1,15 @@
 class NoteModel {
-  String id;
-  String headText;
-  String bodyText;
+  final String noteId;
+  final String headText;
+  final String bodyText;
 
-  NoteModel(String _id, String _headText, String _bodyText) {
-    this.id = _id;
-    this.headText = _headText;
-    this.bodyText = _bodyText;
+  NoteModel({this.noteId, this.headText, this.bodyText});
+
+  factory NoteModel.fromJson(Map<String, dynamic> json) {
+    return NoteModel(
+      noteId: json["noteId"],
+      headText: json["headText"],
+      bodyText: json["bodyText"],
+    );
   }
 }
