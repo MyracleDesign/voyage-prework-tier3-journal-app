@@ -15,19 +15,11 @@ class NoteList extends StatefulWidget {
 class NoteListState extends State<NoteList> {
   var notes = [
     NoteModel(Uuid().v4(), "HeadText", "BodyText"),
-    NoteModel(Uuid().v4(), "HeadText", "BodyText"),
-    NoteModel(Uuid().v4(), "HeadText", "BodyText"),
-    NoteModel(Uuid().v4(), "HeadText", "BodyText"),
-    NoteModel(Uuid().v4(), "HeadText", "BodyText"),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: GridView.count(
-        children: [for (var note in notes) Note(note)],
-        crossAxisCount: 3,
-      ),
-    );
+    return Expanded(
+        child: ListView(children: [for (var note in notes) Note(note)]));
   }
 }

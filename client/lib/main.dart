@@ -45,7 +45,7 @@ class MyHomePage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.fromLTRB(120, 8, 120, 8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -69,8 +69,7 @@ class MyHomePage extends StatelessWidget {
               "Your Journal",
               style: TextStyle(color: Colors.black, fontSize: 36.0),
             ),
-             NoteList(),
-
+            NoteList(),
           ],
         ),
       ),

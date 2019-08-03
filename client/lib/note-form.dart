@@ -1,8 +1,11 @@
+import 'package:flutter_web/cupertino.dart';
 import 'package:flutter_web/material.dart';
 
 class NoteForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var titleController = TextEditingController();
+    var bodyController = TextEditingController();
     return Form(
       key: ValueKey(1),
       child: Column(
@@ -11,6 +14,8 @@ class NoteForm extends StatelessWidget {
             children: <Widget>[
               Expanded(
                 child: TextFormField(
+                  controller: titleController,
+                  maxLines: 1,
                   decoration: InputDecoration(
                       labelText: "Title",
                       labelStyle: TextStyle(color: Colors.black)),
@@ -22,6 +27,7 @@ class NoteForm extends StatelessWidget {
             children: <Widget>[
               Expanded(
                   child: TextFormField(
+                controller: bodyController,
                 maxLines: 4,
                 decoration: InputDecoration(
                     labelText: "Body",
@@ -31,8 +37,9 @@ class NoteForm extends StatelessWidget {
           ),
           Row(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              Container(
+                padding: EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width * 0.6,
                 child: Text(
                   "Use the form above to create a post. Make sure you fill the required title and body fields and press submit.",
                   style: TextStyle(color: Color(0xff717A81)),
@@ -49,6 +56,8 @@ class NoteForm extends StatelessWidget {
                 ),
                 color: Color(0xff007bff),
                 onPressed: () {
+                  print("Title: ${titleController.text}");
+                  print("Body: ${bodyController.text}");
                   print("Submit pressed");
                 },
               )

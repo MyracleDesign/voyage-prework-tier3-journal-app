@@ -14,7 +14,6 @@ class _NoteState extends State<Note> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0))),
@@ -88,6 +87,5 @@ class _NoteState extends State<Note> {
         ],
       ),
     );
-
   }
 }
