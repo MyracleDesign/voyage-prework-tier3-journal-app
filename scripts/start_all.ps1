@@ -9,4 +9,4 @@ Start-Process powershell -ArgumentList  "aqueduct serve" -WorkingDirectory $Serv
 
 Write-Host "Started IdentityService.App,..."
 $ClientFolder = Join-Path -Path (get-item (Get-ScriptDirectory)).Parent.FullName -ChildPath "client";
-Start-Process powershell -ArgumentList  "webdev serve" -WorkingDirectory $ClientFolder;
+Start-Process powershell -ArgumentList  "webdev serve --auto restart" -WorkingDirectory $ClientFolder;
