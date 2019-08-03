@@ -14,7 +14,7 @@ void main() {
   var port = portEnv == null ? 9999 : int.parse(portEnv);
 
   runZoned(() {
-    io.serve(handler, '127.0.0.1', port);
+    io.serve(handler, '0.0.0.0', port);
     print("Serving $pathToBuild on port $port");
   }, onError: (e, stackTrace) => print('Oh noes! $e $stackTrace'));
 }
