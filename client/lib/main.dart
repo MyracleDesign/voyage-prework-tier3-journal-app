@@ -65,7 +65,12 @@ class MyHomePage extends StatelessWidget {
               ],
             ),
             NoteForm(),
-            NoteList()
+            Text(
+              "Your Journal",
+              style: TextStyle(color: Colors.black, fontSize: 36.0),
+            ),
+             NoteList(),
+
           ],
         ),
       ),
