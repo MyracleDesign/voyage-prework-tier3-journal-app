@@ -1,2 +1,2 @@
 git push digital-journal-api master
-git push digital-journal-client master
+git subtree push --prefix client digital-journal-client master
