@@ -9,8 +9,12 @@ class NotesService {
 
     if (response.statusCode == 200) {
       // If the call to the server was successful, parse the JSON.
-      var note = NoteModel.fromJson(json.decode(response.body));
-      return [note];
+      List<NoteModel> noteList = [];
+      var responseList = json.decode(response.body);
+      responseList.forEach((e) {
+        noteList.add(NoteModel.fromJson(e));
+      });
+      return noteList;
     } else {
       // If that call was not successful, throw an error.
       throw Exception('Failed to load post');
