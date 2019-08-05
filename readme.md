@@ -15,46 +15,33 @@ You can start this project by start up the client and server.
 If you have [Powershell](https://github.com/powershell/powershell) installed you can use the [Start Script](scripts/start_all.ps1) to start up the server and client.
 
 ### Prerequisites
-You have to install the newest version of dart sdk + flutter.
-
-```
-# Windows
-choco install dart-sdk
-
-# MacOS
-brew tap dart-lang/dart
-brew install dart
-```
-
-To make also flutter web possible you have to activate the flutter web globally. After installation of flutter and dart. Please execute the following command.
-```powershell
-flutter packages pub global activate webdev
-```
-
-Please check after installing also the PATH variables to dart and flutter.
-
-For more information how to install dart or flutter please visit the following websites
-- [Dart Install](https://dart.dev/get-dart)
-- [Flutter](https://flutter.dev/docs/get-started/install)
+Installed version of flutter, dart-sdk and postgreSQL.
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
+You have to install the newest version of dart sdk + flutter.
+ 
+ ```
+ # Windows
+ choco install dart-sdk
+ choco install flutter
+ choco install postgresql
+ 
+ # MacOS
+ brew tap dart-lang/dart
+ brew install dart
+ ```
+ 
+ To make also flutter web possible you have to activate the flutter web globally. After installation of flutter and dart. Please execute the following command.
+ ```powershell
+ flutter packages pub global activate webdev
+ ```
+ 
+ Please check after installing also the PATH variables to dart and flutter.
+ 
+ For more information how to install dart or flutter please visit the following websites
+ - [Dart Install](https://dart.dev/get-dart)
+ - [Flutter](https://flutter.dev/docs/get-started/install)
 ## Running the tests
 
 Explain how to run the automated tests for this system
@@ -86,6 +73,7 @@ Thanks for all the great products that we can use
 * [Dart](https://dart.dev/) - Dart language
 * [Flutter](https://flutter.dev/) - UI Framework for Dart
 * [Aqueduct](https://aqueduct.io/) - Server Framework for Dart
+* [PostgreSQL](https://www.postgresql.org/) - Open Source Relational Database from Postgre
 
 ## Contributing
 Thanks to all contributers to make that journal the best dart journal in the world.
@@ -97,7 +85,7 @@ For the versions available, see the [tags on this repository](https://github.com
 
 ## Authors
 
-* **Max Weber** - *Setup of the Dev Environment* - [MyracleDesign](https://github.com/MyracleDesign)
+* **Max Weber** - *Contributor* - [MyracleDesign](https://github.com/MyracleDesign)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 

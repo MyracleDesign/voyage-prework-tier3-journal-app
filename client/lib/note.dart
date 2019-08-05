@@ -32,7 +32,7 @@ class _NoteState extends State<Note> {
             child: Padding(
               child: Row(
                 children: <Widget>[
-                  Text(widget.note.headText,
+                  Text(widget.note.headerText,
                       style: TextStyle(color: Colors.black, fontSize: 36.0)),
                 ],
                 mainAxisAlignment: MainAxisAlignment.start,
