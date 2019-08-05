@@ -5,7 +5,10 @@ import 'package:http/http.dart' as http;
 
 class NotesService {
   static Future<List<NoteModel>> getAllNotes() async {
-    final response = await http.get('http://localhost:8888/notes');
+    final Uri mainUri =
+        Uri(host: 'localhost', port: 8888, path: '/notes', scheme: 'http');
+
+    final response = await http.get(mainUri);
 
     print(response.body);
     if (response.statusCode == 200) {

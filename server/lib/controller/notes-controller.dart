@@ -1,26 +1,28 @@
+import 'package:server/model/note.dart';
 import 'package:server/server.dart';
 
-class NotesController extends Controller {
-  final _notes = [
-    {
-      "noteId": "1",
-      "bodyText": "This is the first note",
-      "headText": "First Note"
-    },
-    {
-      "noteId": "2",
-      "bodyText": "THis is the second note",
-      "headText": "Second Note"
-    },
-    {
-      "noteId": "3",
-      "bodyText": "Third note? Yes indeed.",
-      "headText": "Third Note"
-    }
-  ];
+class NotesController extends ResourceController {
+  NotesController(this.context);
 
-  @override
-  FutureOr<RequestOrResponse> handle(Request request) async {
-    return Response.ok(_notes);
+  final ManagedContext context;
+
+  @Operation.get()
+  Future<Response> getAllNotes() async {
+    final notesQuery = Query<Note>(context);
+    final notes = await notesQuery.fetch();
+
+    return Response.ok(notes);
+  }
+
+  @Operation.get('id')
+  Future<Response> getNoteById(@Bind.path('id') int id) async {
+    final noteQuery = Query<Note>(context)..where((h) => h.noteId).equalTo(id);
+    final note = noteQuery.fetchOne();
+
+    if (note == null) {
+      return Response.notFound();
+    } else {
+      return Response.ok(note);
+    }
   }
 }
