@@ -14,6 +14,7 @@ class _NoteState extends State<Note> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      key: ValueKey(widget.note.noteId),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0))),

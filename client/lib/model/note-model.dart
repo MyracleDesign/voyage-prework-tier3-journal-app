@@ -1,5 +1,5 @@
 class NoteModel {
-  final String noteId;
+  final int noteId;
   final String headerText;
   final String bodyText;
 
