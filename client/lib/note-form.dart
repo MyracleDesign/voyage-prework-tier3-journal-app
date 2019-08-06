@@ -1,3 +1,4 @@
+import 'package:client/app-service/notes-service.dart';
 import 'package:flutter_web/cupertino.dart';
 import 'package:flutter_web/material.dart';
 
@@ -56,8 +57,8 @@ class NoteForm extends StatelessWidget {
                 ),
                 color: Color(0xff007bff),
                 onPressed: () {
-                  print("Title: ${titleController.text}");
-                  print("Body: ${bodyController.text}");
+                  NotesService.createNote(
+                      titleController.text, bodyController.text);
                   print("Submit pressed");
                 },
               )
