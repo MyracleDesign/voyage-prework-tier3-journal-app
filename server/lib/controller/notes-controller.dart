@@ -25,4 +25,13 @@ class NotesController extends ResourceController {
       return Response.ok(note);
     }
   }
+
+  @Operation.post()
+  Future<Response> createNote() async {
+    final note = Note()..read(await request.body.decode(), ignore: ['noteId']);
+    final query = Query<Note>(context)..values = note;
+
+    final insertedNote = await query.insert();
+    return Response.ok(insertedNote);
+  }
 }
