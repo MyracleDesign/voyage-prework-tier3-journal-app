@@ -59,7 +59,6 @@ class NoteForm extends StatelessWidget {
                 onPressed: () {
                   NotesService.createNote(
                       titleController.text, bodyController.text);
-                  print("Submit pressed");
                 },
               )
             ],

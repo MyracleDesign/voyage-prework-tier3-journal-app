@@ -1,3 +1,4 @@
+import 'package:client/app-service/notes-service.dart';
 import 'package:client/model/note-model.dart';
 import 'package:flutter_web/material.dart';
 
@@ -78,7 +79,7 @@ class _NoteState extends State<Note> {
                       style: TextStyle(color: Colors.red),
                     ),
                     onPressed: () {
-                      print("Pressed Delete");
+                      NotesService.deleteNote(widget.note.noteId);
                     },
                   ),
                 ],

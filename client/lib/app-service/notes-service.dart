@@ -41,4 +41,14 @@ class NotesService {
       throw Exception('Failed to create a note');
     }
   }
+
+  static Future<NoteModel> deleteNote(int noteId) async {
+    final response = await http.delete(
+        Uri(host: host, port: port, path: '/notes/$noteId', scheme: scheme));
+    if (response.statusCode == 200) {
+      return NoteModel.fromJson(json.decode(response.body));
+    } else {
+      throw Exception("Failed to delete $noteId Note");
+    }
+  }
 }
