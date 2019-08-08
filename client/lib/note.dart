@@ -1,3 +1,4 @@
+import 'package:client/app-service/notes-service.dart';
 import 'package:client/model/note-model.dart';
 import 'package:flutter_web/material.dart';
 
@@ -14,6 +15,7 @@ class _NoteState extends State<Note> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      key: ValueKey(widget.note.noteId),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0))),
@@ -77,7 +79,7 @@ class _NoteState extends State<Note> {
                       style: TextStyle(color: Colors.red),
                     ),
                     onPressed: () {
-                      print("Pressed Delete");
+                      NotesService.deleteNote(widget.note.noteId);
                     },
                   ),
                 ],

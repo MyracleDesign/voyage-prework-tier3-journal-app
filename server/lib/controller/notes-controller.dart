@@ -10,8 +10,7 @@ class NotesController extends ResourceController {
   Future<Response> getAllNotes() async {
     final notesQuery = Query<Note>(context);
     final notes = await notesQuery.fetch();
-
-    return Response.ok(notes);
+    return notes.isEmpty ? Response.ok("") : Response.ok(notes);
   }
 
   @Operation.get('id')
@@ -24,5 +23,22 @@ class NotesController extends ResourceController {
     } else {
       return Response.ok(note);
     }
+  }
+
+  @Operation.post()
+  Future<Response> createNote() async {
+    final note = Note()..read(await request.body.decode(), ignore: ['noteId']);
+    final query = Query<Note>(context)..values = note;
+
+    final insertedNote = await query.insert();
+    return Response.ok(insertedNote);
+  }
+
+  @Operation.delete('id')
+  Future<Response> deleteNote(@Bind.path('id') int id) async {
+    final deleteQuery = Query<Note>(context)
+      ..where((h) => h.noteId).equalTo(id);
+    await deleteQuery.delete();
+    return Response.ok(null);
   }
 }
