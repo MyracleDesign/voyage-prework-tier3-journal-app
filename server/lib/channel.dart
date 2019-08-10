@@ -1,6 +1,6 @@
 import 'package:aqueduct/managed_auth.dart';
 import 'package:server/controller/notes.controller.dart';
-import 'package:server/controller/user.controller.dart';
+import 'package:server/controller/register.controller.dart';
 import 'package:server/model/user.model.dart';
 
 import 'server.dart';
@@ -35,7 +35,9 @@ class ServerChannel extends ApplicationChannel {
 
     router.route('/notes/[:id]').link(() => NotesController(context));
 
-    router.route('/users/[:id]').link(() => UserController(context));
+    router
+        .route('/register')
+        .link(() => RegisterController(context, authServer));
 
     router.route("/example").linkFunction((request) async {
       return Response.ok({"key": "value"});
