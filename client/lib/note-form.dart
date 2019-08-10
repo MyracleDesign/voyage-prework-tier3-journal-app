@@ -1,4 +1,4 @@
-import 'package:client/app-service/notes-service.dart';
+import 'package:client/services/notes.service.dart';
 import 'package:flutter_web/cupertino.dart';
 import 'package:flutter_web/material.dart';
 
