@@ -15,13 +15,15 @@ class ServerChannel extends ApplicationChannel {
     logger.onRecord.listen(
         (rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
 
+    final config = DigitalJournalConfig(options.configurationFilePath);
     final dataModel = ManagedDataModel.fromCurrentMirrorSystem();
     final persistentStore = PostgreSQLPersistentStore.fromConnectionInfo(
-        "digital_journal_user",
-        "Passw0rd",
-        "localhost",
-        5432,
-        "digital_journal");
+      config.database.username,
+      config.database.password,
+      config.database.host,
+      config.database.port,
+      config.database.databaseName,
+    );
 
     context = ManagedContext(dataModel, persistentStore);
 
@@ -33,7 +35,12 @@ class ServerChannel extends ApplicationChannel {
   Controller get entryPoint {
     final router = Router();
 
-    router.route('/notes/[:id]').link(() => NotesController(context));
+    router.route('/auth/token').link(() => AuthController(authServer));
+
+    router
+        .route('/notes/[:id]')
+        .link(() => Authorizer.bearer(authServer))
+        .link(() => NotesController(context));
 
     router
         .route('/register')
@@ -45,4 +52,10 @@ class ServerChannel extends ApplicationChannel {
 
     return router;
   }
+}
+
+class DigitalJournalConfig extends Configuration {
+  DigitalJournalConfig(String path) : super.fromFile(File(path));
+
+  DatabaseConfiguration database;
 }
