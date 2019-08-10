@@ -12,10 +12,8 @@ class ApiService {
     var response =
         await get(Uri(host: host, port: port, path: '/user', scheme: scheme));
 
-    if (response.statusCode == 200) {
-      return User.fromJson(json.decode(response.body));
-    } else {
-      throw Exception('Could not load a user.');
-    }
+    return response.statusCode == 200
+        ? User.fromJson(json.decode(response.body))
+        : null;
   }
 }

@@ -1,6 +1,8 @@
+import 'package:client/model/user.model.dart';
 import 'package:client/note-form.dart';
 import 'package:client/note-list.dart';
 import 'package:flutter_web/material.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -11,7 +13,10 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Provider.of<User>(context) == null
+            ? Text(title)
+            : Text(
+                "$title: Nice to see you ${Provider.of<User>(context).name}"),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.exit_to_app),

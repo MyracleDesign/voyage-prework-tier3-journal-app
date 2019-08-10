@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
                       var loginSuccess = await model.login(_controller.text);
                       if (loginSuccess) {
                         await Navigator.pushNamed(context, RoutePaths.Home);
-                      }
+                      } else {}
                     })
           ],
         ),
