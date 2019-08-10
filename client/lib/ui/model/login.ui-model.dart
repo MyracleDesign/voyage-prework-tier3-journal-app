@@ -1,7 +1,8 @@
+import 'package:client/model/base.model.dart';
 import 'package:client/services/auth.service.dart';
 import 'package:flutter_web/foundation.dart';
 
-class LoginUiModel extends ChangeNotifier {
+class LoginUiModel extends BaseModel {
   AuthService _authService;
   bool _busy = false;
 

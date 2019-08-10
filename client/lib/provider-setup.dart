@@ -1,6 +1,5 @@
 import 'package:client/services/api.service.dart';
 import 'package:client/services/auth.service.dart';
-import 'package:client/services/notes.service.dart';
 import 'package:provider/provider.dart';
 
 List<SingleChildCloneableWidget> providers = [
@@ -10,7 +9,6 @@ List<SingleChildCloneableWidget> providers = [
 ];
 
 List<SingleChildCloneableWidget> independentService = [
-  Provider.value(value: NotesService()),
   Provider.value(value: ApiService())
 ];
 List<SingleChildCloneableWidget> dependentService = [
