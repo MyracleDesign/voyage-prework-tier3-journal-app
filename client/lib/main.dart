@@ -1,17 +1,22 @@
 import 'package:client/note-form.dart';
 import 'package:client/note-list.dart';
+import 'package:client/provider-setup.dart';
 import 'package:flutter_web/cupertino.dart';
 import 'package:flutter_web/material.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Digital Journal',
-      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "Roboto"),
-      home: MyHomePage(title: 'Digital Journal'),
+    return MultiProvider(
+      providers: providers,
+      child: MaterialApp(
+        title: 'Digital Journal',
+        theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "Roboto"),
+        home: MyHomePage(title: 'Digital Journal'),
+      ),
     );
   }
 }
