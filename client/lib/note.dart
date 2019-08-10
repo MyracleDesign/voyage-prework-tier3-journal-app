@@ -1,5 +1,5 @@
-import 'package:client/app-service/notes-service.dart';
-import 'package:client/model/note-model.dart';
+import 'package:client/model/note.model.dart';
+import 'package:client/services/notes.service.dart';
 import 'package:flutter_web/material.dart';
 
 class Note extends StatefulWidget {
