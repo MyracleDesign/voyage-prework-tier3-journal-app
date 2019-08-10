@@ -1,4 +1,4 @@
-import 'package:server/model/note.dart';
+import 'package:server/model/note.model.dart';
 import 'package:server/server.dart';
 
 class NotesController extends ResourceController {
