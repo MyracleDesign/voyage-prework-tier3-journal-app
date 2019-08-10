@@ -11,13 +11,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  var _controller = TextEditingController();
+  var _usernameController = TextEditingController();
+  var _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BaseWidget<LoginUiModel>(
       model: LoginUiModel(authService: Provider.of(context)),
-      child: LoginHeader(controller: _controller),
+      child: LoginHeader(
+          usernameController: _usernameController,
+          passwordController: _passwordController),
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.blue,
         body: Column(
@@ -26,14 +29,15 @@ class _LoginPageState extends State<LoginPage> {
             child,
             model.busy
                 ? CircularProgressIndicator()
-                : FlatButton(
+                : RaisedButton(
                     color: Colors.white,
                     child: Text(
                       'Login',
                       style: TextStyle(color: Colors.black),
                     ),
                     onPressed: () async {
-                      var loginSuccess = await model.login(_controller.text);
+                      var loginSuccess =
+                          await model.login(_usernameController.text);
                       if (loginSuccess) {
                         await Navigator.pushNamed(context, RoutePaths.Home);
                       } else {}

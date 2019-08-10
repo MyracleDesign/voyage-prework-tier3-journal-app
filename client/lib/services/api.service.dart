@@ -9,8 +9,8 @@ class ApiService {
   static final scheme = 'http';
 
   Future<User> getUserProfile(int userId) async {
-    var response =
-        await get(Uri(host: host, port: port, path: '/user', scheme: scheme));
+    var response = await get(
+        Uri(host: host, port: port, path: '/user/$userId', scheme: scheme));
 
     return response.statusCode == 200
         ? User.fromJson(json.decode(response.body))
