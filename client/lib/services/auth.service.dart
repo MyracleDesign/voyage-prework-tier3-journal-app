@@ -12,14 +12,9 @@ class AuthService {
 
   Stream<User> get user => _userController.stream;
 
-  Future<bool> login(int userId) async {
-    var fetchUser = await _api.getUserProfile(userId);
-
-    var hasUser = fetchUser != null;
-    if (hasUser) {
-      _userController.add(fetchUser);
-    }
-
-    return hasUser;
+  Future<bool> login(String username, String password) async {
+    await _api.loginWithUsernamePassword(username, password);
+    await _api.getUserProfile();
+    return true;
   }
 }

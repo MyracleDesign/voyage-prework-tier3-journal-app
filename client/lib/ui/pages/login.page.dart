@@ -36,8 +36,10 @@ class _LoginPageState extends State<LoginPage> {
                       style: TextStyle(color: Colors.black),
                     ),
                     onPressed: () async {
-                      var loginSuccess =
-                          await model.login(_usernameController.text);
+                      var loginSuccess = await model.login(
+                        _usernameController.text,
+                        _passwordController.text,
+                      );
                       if (loginSuccess) {
                         await Navigator.pushNamed(context, RoutePaths.Home);
                       } else {}

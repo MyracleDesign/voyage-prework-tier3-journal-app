@@ -1,6 +1,7 @@
 import 'package:aqueduct/managed_auth.dart';
 import 'package:server/controller/notes.controller.dart';
 import 'package:server/controller/register.controller.dart';
+import 'package:server/controller/user.controller.dart';
 import 'package:server/model/user.model.dart';
 
 import 'server.dart';
@@ -12,6 +13,11 @@ class ServerChannel extends ApplicationChannel {
 
   @override
   Future prepare() async {
+    CORSPolicy.defaultPolicy.allowedOrigins = [
+      "http://127.0.0.1:8080",
+      "http://localhost:8080"
+    ];
+
     logger.onRecord.listen(
         (rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
 
@@ -45,6 +51,11 @@ class ServerChannel extends ApplicationChannel {
     router
         .route('/register')
         .link(() => RegisterController(context, authServer));
+
+    router
+        .route('/userProfile')
+        .link(() => Authorizer.bearer(authServer))
+        .link(() => UserProfileController(context));
 
     router.route("/example").linkFunction((request) async {
       return Response.ok({"key": "value"});

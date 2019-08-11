@@ -16,10 +16,9 @@ class LoginUiModel extends BaseModel {
   LoginUiModel({@required AuthService authService})
       : _authService = authService;
 
-  Future<bool> login(String userIdText) async {
+  Future<bool> login(String username, String password) async {
     setBusy(true);
-    var userId = int.tryParse(userIdText);
-    var success = await _authService.login(userId);
+    var success = await _authService.login(username, password);
     setBusy(false);
     return success;
   }
