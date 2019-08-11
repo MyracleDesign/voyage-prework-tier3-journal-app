@@ -1,10 +1,10 @@
-import 'package:server/server.dart';
 import 'package:aqueduct_test/aqueduct_test.dart';
+import 'package:server/server.dart';
 
-export 'package:server/server.dart';
-export 'package:aqueduct_test/aqueduct_test.dart';
-export 'package:test/test.dart';
 export 'package:aqueduct/aqueduct.dart';
+export 'package:aqueduct_test/aqueduct_test.dart';
+export 'package:server/server.dart';
+export 'package:test/test.dart';
 
 /// A testing harness for server.
 ///
@@ -19,14 +19,33 @@ export 'package:aqueduct/aqueduct.dart';
 ///           });
 ///         }
 ///
-class Harness extends TestHarness<ServerChannel> {
+class Harness extends TestHarness<ServerChannel>
+    with TestHarnessAuthMixin<ServerChannel>, TestHarnessORMMixin {
+  Agent publicAgent;
+
   @override
   Future onSetUp() async {
-
+    await resetData();
+    publicAgent = await addClient("com.aqueduct.public");
   }
 
   @override
-  Future onTearDown() async {
+  Future onTearDown() async {}
 
+  @override
+  ManagedContext get context => channel.context;
+
+  @override
+  AuthServer get authServer => channel.authServer;
+
+  Future<Agent> registerUser(String username, String password,
+      {Agent withClient}) async {
+    withClient ??= publicAgent;
+
+    final req = withClient.request('/register')
+      ..body = {"username": username, "password": password};
+    await req.post();
+
+    return loginUser(withClient, username, password);
   }
 }
