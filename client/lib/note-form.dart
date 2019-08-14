@@ -1,6 +1,7 @@
-import 'package:client/services/notes.service.dart';
+import 'package:client/ui/model/notes.ui-model.dart';
 import 'package:flutter_web/cupertino.dart';
 import 'package:flutter_web/material.dart';
+import 'package:provider/provider.dart';
 
 class NoteForm extends StatelessWidget {
   @override
@@ -57,8 +58,8 @@ class NoteForm extends StatelessWidget {
                 ),
                 color: Color(0xff007bff),
                 onPressed: () {
-                  NotesService.createNote(
-                      titleController.text, bodyController.text);
+                  NotesUiModel t = Provider.of(context);
+                  t.createNote("TestDataHeader", "TestDataBody");
                 },
               )
             ],

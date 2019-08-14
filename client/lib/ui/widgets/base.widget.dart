@@ -5,8 +5,10 @@ class BaseWidget<T extends ChangeNotifier> extends StatefulWidget {
   final Widget child;
   final Widget Function(BuildContext context, T value, Widget child) builder;
   final T model;
+  final Function(T) onModelReady;
 
-  BaseWidget({Key key, this.model, this.builder, this.child}) : super(key: key);
+  BaseWidget({Key key, this.model, this.builder, this.child, this.onModelReady})
+      : super(key: key);
 
   @override
   _BaseWidgetState<T> createState() => _BaseWidgetState<T>();
@@ -18,6 +20,10 @@ class _BaseWidgetState<T extends ChangeNotifier> extends State<BaseWidget<T>> {
   @override
   void initState() {
     model = widget.model;
+
+    if (widget.onModelReady != null) {
+      widget.onModelReady(model);
+    }
     super.initState();
   }
 

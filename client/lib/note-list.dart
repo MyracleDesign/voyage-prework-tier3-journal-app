@@ -1,7 +1,8 @@
-import 'package:client/model/note.model.dart';
-import 'package:client/services/notes.service.dart';
+import 'package:client/ui/model/notes.ui-model.dart';
+import 'package:client/ui/widgets/base.widget.dart';
 import 'package:flutter_web/cupertino.dart';
 import 'package:flutter_web/material.dart';
+import 'package:provider/provider.dart';
 
 import 'note.dart';
 
@@ -13,27 +14,30 @@ class NoteList extends StatefulWidget {
 }
 
 class NoteListState extends State<NoteList> {
-  Future<List<NoteModel>> notes;
-
-  @override
-  void initState() {
-    super.initState();
-    notes = NotesService.getAllNotes();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: FutureBuilder(
-        future: notes,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView(
-              children: [for (var note in snapshot.data) Note(note)],
-            );
-          } else {
-            return Text("No Notes here");
-          }
+      child: BaseWidget<NotesUiModel>(
+        model: NotesUiModel(apiService: Provider.of(context)),
+        onModelReady: (model) => {model.getNotes()},
+        builder: (context, model, child) {
+          return model.busy
+              ? Center(child: CircularProgressIndicator())
+              : model.notes.isEmpty
+                  ? Center(
+                      child: RaisedButton(
+                      child: Text("Create one"),
+                      onPressed: () {
+                        model.createNote("headerText", "bodyText");
+                      },
+                    ))
+                  : ListView(children: [
+                      for (var note in model.notes)
+                        Note(
+                          note: note,
+                          model: model,
+                        )
+                    ]);
         },
       ),
     );

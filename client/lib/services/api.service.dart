@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:client/model/auth.model.dart';
+import 'package:client/model/note.model.dart';
 import 'package:client/model/user.model.dart';
 import 'package:http/http.dart';
 
@@ -19,7 +20,12 @@ class ApiService {
   Future<bool> loginWithUsernamePassword(
       String username, String password) async {
     var response = await post(
-        Uri(host: host, port: port, path: '/auth/token', scheme: scheme),
+        Uri(
+          host: host,
+          port: port,
+          path: '/auth/token',
+          scheme: scheme,
+        ),
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           "Authorization": "Basic $clientCredentials"
@@ -40,13 +46,76 @@ class ApiService {
 
   Future<User> getUserProfile() async {
     var response = await get(
-      Uri(host: host, port: port, path: '/userProfile', scheme: scheme),
+      Uri(
+        host: host,
+        port: port,
+        path: '/userProfile',
+        scheme: scheme,
+      ),
       headers: {"Authorization": "Bearer ${authModel.accessToken}"},
     );
-    print(response.statusCode);
-
     return response.statusCode == 200
         ? User.fromJson(json.decode(response.body))
         : null;
+  }
+
+  Future<List<NoteModel>> getAllNotesForUser() async {
+    var response = await get(
+        Uri(
+          host: host,
+          port: port,
+          path: '/notes',
+          scheme: scheme,
+        ),
+        headers: {"Authorization": "Bearer ${authModel.accessToken}"});
+
+    if (response.statusCode == 200) {
+      List<NoteModel> noteList = [];
+      List<dynamic> responseList = json.decode(response.body);
+      responseList.forEach((responseNote) {
+        noteList.add(NoteModel.fromJson(responseNote));
+      });
+      return noteList;
+    } else {
+      // If that call was not successful, throw an error.
+      throw Exception('Failed to load post');
+    }
+  }
+
+  Future<NoteModel> createNote(String headerText, String bodyText) async {
+    final response = await post(
+      Uri(
+        host: host,
+        port: port,
+        path: '/notes',
+        scheme: scheme,
+      ),
+      body: json.encode({"headerText": headerText, "bodyText": bodyText}),
+      headers: {
+        "content-type": 'application/json',
+        "Authorization": "Bearer ${authModel.accessToken}"
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return NoteModel.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to create a note');
+    }
+  }
+
+  Future<bool> deleteNote(int noteId) async {
+    final response = await delete(
+      Uri(
+        host: host,
+        port: port,
+        path: '/notes/$noteId',
+        scheme: scheme,
+      ),
+      headers: {"Authorization": "Bearer ${authModel.accessToken}"},
+    );
+    return response.statusCode == 200
+        ? true
+        : throw Exception("Failed to delete $noteId Note");
   }
 }

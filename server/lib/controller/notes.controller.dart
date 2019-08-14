@@ -10,7 +10,7 @@ class NotesController extends ResourceController {
   Future<Response> getAllNotes() async {
     final notesQuery = Query<Note>(context);
     final notes = await notesQuery.fetch();
-    return notes.isEmpty ? Response.ok("") : Response.ok(notes);
+    return notes.isEmpty ? Response.ok([]) : Response.ok(notes);
   }
 
   @Operation.get('id')
@@ -36,9 +36,11 @@ class NotesController extends ResourceController {
 
   @Operation.delete('id')
   Future<Response> deleteNote(@Bind.path('id') int id) async {
+    final noteQuery = Query<Note>(context)..where((h) => h.noteId).equalTo(id);
+    final note = await noteQuery.fetchOne();
     final deleteQuery = Query<Note>(context)
       ..where((h) => h.noteId).equalTo(id);
     await deleteQuery.delete();
-    return Response.ok(null);
+    return Response.ok(note);
   }
 }
