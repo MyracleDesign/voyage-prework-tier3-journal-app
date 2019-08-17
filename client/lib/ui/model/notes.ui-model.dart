@@ -18,15 +18,16 @@ class NotesUiModel extends BaseModel {
 
   Future createNote(headerText, bodyText) async {
     setBusy(true);
-    notes.add(await _apiService.createNote(headerText, bodyText));
+    var note = await _apiService.createNote(headerText, bodyText);
+    notes.add(note);
     setBusy(false);
   }
 
   Future deleteNote(int noteId) async {
     setBusy(true);
-    var deleted = await _apiService.deleteNote(noteId);
-    if (deleted) {
-      notes.removeWhere((test) => test.noteId == noteId);
+    var deletedNote = await _apiService.deleteNote(noteId);
+    if (deletedNote) {
+      notes.removeWhere((noteModel) => noteModel.noteId == noteId);
     }
     setBusy(false);
   }

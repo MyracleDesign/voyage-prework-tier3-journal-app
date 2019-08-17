@@ -41,8 +41,10 @@ class _LoginPageState extends State<LoginPage> {
                         _passwordController.text,
                       );
                       if (loginSuccess) {
+                        _usernameController.clear();
+                        _passwordController.clear();
                         await Navigator.pushNamed(context, RoutePaths.Home);
-                      } else {}
+                      }
                     })
           ],
         ),

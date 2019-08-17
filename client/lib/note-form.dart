@@ -1,9 +1,12 @@
 import 'package:client/ui/model/notes.ui-model.dart';
 import 'package:flutter_web/cupertino.dart';
 import 'package:flutter_web/material.dart';
-import 'package:provider/provider.dart';
 
 class NoteForm extends StatelessWidget {
+  final NotesUiModel model;
+
+  const NoteForm({Key key, this.model}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var titleController = TextEditingController();
@@ -58,8 +61,7 @@ class NoteForm extends StatelessWidget {
                 ),
                 color: Color(0xff007bff),
                 onPressed: () {
-                  NotesUiModel t = Provider.of(context);
-                  t.createNote("TestDataHeader", "TestDataBody");
+                  model.createNote(titleController.text, bodyController.text);
                 },
               )
             ],

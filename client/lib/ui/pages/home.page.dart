@@ -1,6 +1,8 @@
 import 'package:client/model/user.model.dart';
 import 'package:client/note-form.dart';
-import 'package:client/note-list.dart';
+import 'package:client/ui/model/notes.ui-model.dart';
+import 'package:client/ui/widgets/base.widget.dart';
+import 'package:client/ui/widgets/note-list.widget.dart';
 import 'package:flutter_web/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,32 +39,36 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                RichText(
-                  text: TextSpan(
-                      text: "Digital Journal ",
+        child: BaseWidget(
+            model: NotesUiModel(apiService: Provider.of(context)),
+            onModelReady: (model) => model.getNotes(),
+            builder: (context, model, child) => Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                              text: "Digital Journal ",
+                              style: TextStyle(
+                                  color: Colors.black, fontSize: 36.0),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: "| Create a note",
+                                    style: TextStyle(
+                                        color: Color(0xff767e86),
+                                        fontSize: 24.0))
+                              ]),
+                        ),
+                      ],
+                    ),
+                    NoteForm(model: model),
+                    Text(
+                      "Your Journal",
                       style: TextStyle(color: Colors.black, fontSize: 36.0),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: "| Create a note",
-                            style: TextStyle(
-                                color: Color(0xff767e86), fontSize: 24.0))
-                      ]),
-                ),
-              ],
-            ),
-            NoteForm(),
-            Text(
-              "Your Journal",
-              style: TextStyle(color: Colors.black, fontSize: 36.0),
-            ),
-            NoteList(),
-          ],
-        ),
+                    ),
+                    NoteList(model: model),
+                  ],
+                )),
       ),
     );
   }
