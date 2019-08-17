@@ -17,41 +17,52 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<LoginUiModel>(
-      model: LoginUiModel(authService: Provider.of(context)),
-      child: Form(
-        key: _formKey,
-        child: LoginHeader(
-          usernameController: _usernameController,
-          passwordController: _passwordController,
+    return Scaffold(
+      appBar: AppBar(title: Text("Login")),
+      body: BaseWidget<LoginUiModel>(
+        model: LoginUiModel(authService: Provider.of(context)),
+        child: Form(
+          key: _formKey,
+          child: LoginHeader(
+            usernameController: _usernameController,
+            passwordController: _passwordController,
+          ),
         ),
-      ),
-      builder: (context, model, child) => Scaffold(
-        backgroundColor: Colors.blue,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            child,
-            RaisedButton(
+        builder: (context, model, child) => Scaffold(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              child,
+              RaisedButton(
+                  color: Colors.white,
+                  child: Text(
+                    'Login',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onPressed: () async {
+                    if (_formKey.currentState.validate()) {
+                      var loginSuccess = await model.login(
+                        _usernameController.text,
+                        _passwordController.text,
+                      );
+                      if (loginSuccess) {
+                        _usernameController.clear();
+                        _passwordController.clear();
+                        await Navigator.pushNamed(context, RoutePaths.Home);
+                      }
+                    }
+                  }),
+              RaisedButton(
                 color: Colors.white,
                 child: Text(
-                  'Login',
-                  style: TextStyle(color: Colors.black),
+                  "Register",
                 ),
-                onPressed: () async {
-                  if (_formKey.currentState.validate()) {
-                    var loginSuccess = await model.login(
-                      _usernameController.text,
-                      _passwordController.text,
-                    );
-                    if (loginSuccess) {
-                      _usernameController.clear();
-                      _passwordController.clear();
-                      await Navigator.pushNamed(context, RoutePaths.Home);
-                    }
-                  }
-                })
-          ],
+                onPressed: () {
+                  Navigator.pushNamed(context, RoutePaths.Register);
+                },
+              )
+            ],
+          ),
         ),
       ),
     );

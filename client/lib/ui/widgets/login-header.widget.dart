@@ -35,6 +35,7 @@ class LoginTextField extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(10.0)),
       child: TextFormField(
+        obscureText: hintText == "Password",
         validator: (value) {
           return value.isEmpty ? "Please enter a ${hintText}" : null;
         },
