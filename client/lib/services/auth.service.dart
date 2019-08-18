@@ -17,4 +17,8 @@ class AuthService {
     await _api.getUserProfile();
     return true;
   }
+
+  Future<User> register(String username, String password) async {
+    return await _api.registerWithUsernamePassword(username, password);
+  }
 }

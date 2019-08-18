@@ -118,4 +118,24 @@ class ApiService {
         ? true
         : throw Exception("Failed to delete $noteId Note");
   }
+
+  Future<User> registerWithUsernamePassword(
+      String username, String password) async {
+    final response = await post(
+      Uri(
+        host: host,
+        port: port,
+        path: '/register',
+        scheme: scheme,
+      ),
+      headers: {"content-type": 'application/json'},
+      body: json.encode({"username": username, "password": password}),
+    );
+
+    if (response.statusCode == 200) {
+      return User.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to register');
+    }
+  }
 }
