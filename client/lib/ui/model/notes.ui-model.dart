@@ -26,9 +26,10 @@ class NotesUiModel extends BaseModel {
   Future deleteNote(int noteId) async {
     setBusy(true);
     var deletedNote = await _apiService.deleteNote(noteId);
+    setBusy(false);
+
     if (deletedNote) {
       notes.removeWhere((noteModel) => noteModel.noteId == noteId);
     }
-    setBusy(false);
   }
 }

@@ -3,12 +3,9 @@ import 'package:flutter_web/material.dart';
 class LoginHeader extends StatelessWidget {
   final TextEditingController usernameController;
   final TextEditingController passwordController;
-  final String validationMessage;
 
   LoginHeader(
-      {@required this.usernameController,
-      this.validationMessage,
-      this.passwordController});
+      {@required this.usernameController, @required this.passwordController});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +13,7 @@ class LoginHeader extends StatelessWidget {
       Text('Login'),
       LoginTextField(usernameController, 'Username'),
       LoginTextField(passwordController, 'Password'),
-      this.validationMessage != null
-          ? Text(validationMessage, style: TextStyle(color: Colors.red))
-          : Container()
+      Container()
     ]);
   }
 }
@@ -39,9 +34,14 @@ class LoginTextField extends StatelessWidget {
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(10.0)),
-      child: TextField(
-          decoration: InputDecoration.collapsed(hintText: hintText),
-          controller: controller),
+      child: TextFormField(
+        obscureText: hintText == "Password",
+        validator: (value) {
+          return value.isEmpty ? "Please enter a ${hintText}" : null;
+        },
+        decoration: InputDecoration.collapsed(hintText: hintText),
+        controller: controller,
+      ),
     );
   }
 }

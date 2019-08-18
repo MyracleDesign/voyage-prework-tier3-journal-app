@@ -13,29 +13,34 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   var _usernameController = TextEditingController();
   var _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return BaseWidget<LoginUiModel>(
-      model: LoginUiModel(authService: Provider.of(context)),
-      child: LoginHeader(
-          usernameController: _usernameController,
-          passwordController: _passwordController),
-      builder: (context, model, child) => Scaffold(
-        backgroundColor: Colors.blue,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            child,
-            model.busy
-                ? CircularProgressIndicator()
-                : RaisedButton(
-                    color: Colors.white,
-                    child: Text(
-                      'Login',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    onPressed: () async {
+    return Scaffold(
+      appBar: AppBar(title: Text("Login")),
+      body: BaseWidget<LoginUiModel>(
+        model: LoginUiModel(authService: Provider.of(context)),
+        child: Form(
+          key: _formKey,
+          child: LoginHeader(
+            usernameController: _usernameController,
+            passwordController: _passwordController,
+          ),
+        ),
+        builder: (context, model, child) => Scaffold(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              child,
+              RaisedButton(
+                  color: Colors.white,
+                  child: Text(
+                    'Login',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  onPressed: () async {
+                    if (_formKey.currentState.validate()) {
                       var loginSuccess = await model.login(
                         _usernameController.text,
                         _passwordController.text,
@@ -45,8 +50,19 @@ class _LoginPageState extends State<LoginPage> {
                         _passwordController.clear();
                         await Navigator.pushNamed(context, RoutePaths.Home);
                       }
-                    })
-          ],
+                    }
+                  }),
+              RaisedButton(
+                color: Colors.white,
+                child: Text(
+                  "Register",
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, RoutePaths.Register);
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
