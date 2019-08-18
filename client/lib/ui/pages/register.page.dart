@@ -36,6 +36,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: child,
             ),
             RaisedButton(
+              color: Color(0xFF4fdbc1),
               onPressed: () async {
                 if (_formKey.currentState.validate()) {
                   var user = await model.registerNewUser(
@@ -47,10 +48,17 @@ class _RegisterPageState extends State<RegisterPage> {
                   }
                 }
               },
-              child: Text("Register"),
+              child: Text(
+                "Register",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             RaisedButton(
-              child: Text("Back to login"),
+              color: Color(0xFF4fdbc1),
+              child: Text(
+                "Back to login",
+                style: TextStyle(color: Colors.white),
+              ),
               onPressed: () {
                 Navigator.popAndPushNamed(context, RoutePaths.Login);
               },

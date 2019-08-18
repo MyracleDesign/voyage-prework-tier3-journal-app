@@ -9,12 +9,14 @@ class LoginHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: <Widget>[
-      Text('Login'),
-      LoginTextField(usernameController, 'Username'),
-      LoginTextField(passwordController, 'Password'),
-      Container()
-    ]);
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text('Login'),
+          LoginTextField(usernameController, 'Username'),
+          LoginTextField(passwordController, 'Password'),
+        ]);
   }
 }
 
@@ -27,19 +29,22 @@ class LoginTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.35,
+      width: 300,
       padding: EdgeInsets.symmetric(horizontal: 15.0),
       margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
       height: 50.0,
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(10.0)),
+        color: Color(0xFF0e2d3f),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
       child: TextFormField(
         obscureText: hintText == "Password",
         validator: (value) {
           return value.isEmpty ? "Please enter a ${hintText}" : null;
         },
-        decoration: InputDecoration.collapsed(hintText: hintText),
+        decoration: InputDecoration.collapsed(
+            hintText: hintText, hintStyle: TextStyle(color: Color(0xFFaabac1))),
         controller: controller,
       ),
     );
