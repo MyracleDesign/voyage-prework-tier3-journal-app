@@ -15,11 +15,27 @@ class RegisterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        LoginTextField(usernameController, "Username"),
-        LoginTextField(passwordController, "Password"),
-        LoginTextField(passwordValidationController, "Password"),
-        Container()
+        Padding(
+          child: Text('Welcome, to ',
+              style: TextStyle(
+                color: Colors.white,
+              )),
+          padding: EdgeInsets.all(8.0),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
+          child: Headline(),
+        ),
+        Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("Register", style: TextStyle(color: Colors.white))),
+        LoginTextField(usernameController, "Username", false),
+        LoginTextField(passwordController, "Password", true),
+        LoginTextField(
+            passwordValidationController, "Please repeat your Password", true),
       ],
     );
   }

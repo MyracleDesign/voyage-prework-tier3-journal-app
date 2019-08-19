@@ -21,11 +21,15 @@ class LoginHeader extends StatelessWidget {
             padding: EdgeInsets.all(8.0),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 32.0),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
             child: Headline(),
           ),
-          LoginTextField(usernameController, 'Username'),
-          LoginTextField(passwordController, 'Password'),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("Login", style: TextStyle(color: Colors.white)),
+          ),
+          LoginTextField(usernameController, 'Username', false),
+          LoginTextField(passwordController, 'Password', true),
         ]);
   }
 }
@@ -70,8 +74,9 @@ class Headline extends StatelessWidget {
 class LoginTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final bool obscureText;
 
-  LoginTextField(this.controller, this.hintText);
+  LoginTextField(this.controller, this.hintText, this.obscureText);
 
   @override
   Widget build(BuildContext context) {
@@ -86,12 +91,15 @@ class LoginTextField extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: TextFormField(
-        obscureText: hintText == "Password",
+        obscureText: obscureText,
         validator: (value) {
           return value.isEmpty ? "Please enter a ${hintText}" : null;
         },
         decoration: InputDecoration.collapsed(
-            hintText: hintText, hintStyle: TextStyle(color: Color(0xFFaabac1))),
+          hintText: hintText,
+          hintStyle: TextStyle(color: Color(0xFFaabac1)),
+        ),
+        style: TextStyle(color: Colors.white),
         controller: controller,
       ),
     );
