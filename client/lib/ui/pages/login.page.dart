@@ -32,8 +32,8 @@ class _LoginPageState extends State<LoginPage> {
           body: Container(
             decoration: BoxDecoration(color: Color(0xFF4edac0)),
             child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              child: ListView(
+                shrinkWrap: true,
                 children: <Widget>[
                   Container(
                     height: 500,

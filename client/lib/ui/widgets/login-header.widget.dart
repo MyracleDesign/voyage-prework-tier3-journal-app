@@ -13,10 +13,57 @@ class LoginHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text('Login'),
+          Padding(
+            child: Text('Welcome, to ',
+                style: TextStyle(
+                  color: Colors.white,
+                )),
+            padding: EdgeInsets.all(8.0),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 32.0),
+            child: Headline(),
+          ),
           LoginTextField(usernameController, 'Username'),
           LoginTextField(passwordController, 'Password'),
         ]);
+  }
+}
+
+class Headline extends StatelessWidget {
+  const Headline({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          "Flutter ",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 32.0,
+          ),
+        ),
+        Text(
+          "Digital ",
+          style: TextStyle(
+            color: Colors.lightBlueAccent,
+            fontSize: 32.0,
+          ),
+        ),
+        Text(
+          "Journal",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 32.0,
+          ),
+        ),
+      ],
+    );
   }
 }
 
