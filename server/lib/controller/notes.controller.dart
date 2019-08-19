@@ -8,14 +8,17 @@ class NotesController extends ResourceController {
 
   @Operation.get()
   Future<Response> getAllNotes() async {
-    final notesQuery = Query<Note>(context);
+    final notesQuery = Query<Note>(context)
+      ..where((h) => h.ownerId).equalTo(request.authorization.ownerID);
     final notes = await notesQuery.fetch();
     return notes.isEmpty ? Response.ok([]) : Response.ok(notes);
   }
 
   @Operation.get('id')
   Future<Response> getNoteById(@Bind.path('id') int id) async {
-    final noteQuery = Query<Note>(context)..where((h) => h.noteId).equalTo(id);
+    final noteQuery = Query<Note>(context)
+      ..where((h) => h.ownerId).equalTo(request.authorization.ownerID)
+      ..where((h) => h.noteId).equalTo(id);
     final note = noteQuery.fetchOne();
 
     if (note == null) {
@@ -27,7 +30,9 @@ class NotesController extends ResourceController {
 
   @Operation.post()
   Future<Response> createNote() async {
-    final note = Note()..read(await request.body.decode(), ignore: ['noteId']);
+    final note = Note()
+      ..ownerId = request.authorization.ownerID
+      ..read(await request.body.decode(), ignore: ['noteId']);
     final query = Query<Note>(context)..values = note;
 
     final insertedNote = await query.insert();
@@ -38,9 +43,16 @@ class NotesController extends ResourceController {
   Future<Response> deleteNote(@Bind.path('id') int id) async {
     final noteQuery = Query<Note>(context)..where((h) => h.noteId).equalTo(id);
     final note = await noteQuery.fetchOne();
-    final deleteQuery = Query<Note>(context)
-      ..where((h) => h.noteId).equalTo(id);
-    await deleteQuery.delete();
-    return Response.ok(note);
+
+    if (note.ownerId == request.authorization.ownerID) {
+      final deleteQuery = Query<Note>(context)
+        ..where((h) => h.noteId).equalTo(id);
+      await deleteQuery.delete();
+      return Response.ok(note);
+    } else {
+      return Response.forbidden(
+        body: {"error": "You are not allowed to delete that note"},
+      );
+    }
   }
 }

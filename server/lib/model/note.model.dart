@@ -6,6 +6,9 @@ class _Note {
   @primaryKey
   int noteId;
 
+  @Column()
+  int ownerId;
+
   @Column(unique: false)
   String bodyText;
 
