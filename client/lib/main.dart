@@ -14,11 +14,11 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: providers,
       child: MaterialApp(
-        title: 'Digital Journal',
+        title: 'Flutter Digital Journal',
         theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "Roboto"),
         initialRoute: RoutePaths.Login,
         onGenerateRoute: Router.generateRoute,
-        home: MyHomePage(title: 'Digital Journal'),
+        home: MyHomePage(title: 'Flutter Digital Journal - Chingu Prework'),
       ),
     );
   }
