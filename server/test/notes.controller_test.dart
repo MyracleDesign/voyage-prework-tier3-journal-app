@@ -70,7 +70,7 @@ void main() {
       expect(response, hasBody(hasLength(1)));
     });
 
-    test("should return a single note", () async {
+/*    test("should return a single note", () async {
       final user = await harness.registerUser("bob", "password");
       final response = await user.get("/notes?id=2");
 
@@ -87,12 +87,68 @@ void main() {
       final response = await user.get("/notes?id=3");
 
       expectResponse(response, 403);
-    });
+    });*/
   });
 
   group("[POST]", () {});
 
   group("[DELETE]", () {});
 
-  group("[PUT]", () {});
+  group("[PUT] /notes", () {
+    Agent user;
+
+    setUp(() async {
+      user = await harness.registerUser("bob", "password");
+    });
+
+    test('should return 400 if noteId, noteBody or noteHeader is missing',
+        () async {
+      final response = await user.put("/notes", body: {});
+      expectResponse(response, 400);
+    });
+
+    test('should return 200 if called with noteId, noteBody, noteHeader',
+        () async {
+      final response = await user.put("/notes", body: {
+        "noteId": 1,
+        "bodyText": "Updated Body",
+        "headerText": "Updated Title"
+      });
+      expectResponse(response, 200);
+    });
+
+    test('should return an updated note', () async {
+      final response = await user.put("/notes", body: {
+        "noteId": 1,
+        "bodyText": "Updated Body",
+        "headerText": "Updated Title"
+      });
+
+      expectResponse(response, 200,
+          body: partial({
+            "noteId": 1,
+            "bodyText": "Updated Body",
+            "headerText": "Updated Title"
+          }));
+    });
+
+    test('should update a note in the database', () async {
+      const updatedBodyText = "Updated Body";
+      const updatedTitleText = "Updated Title";
+
+      await user.put("/notes", body: {
+        "noteId": 1,
+        "bodyText": updatedBodyText,
+        "headerText": updatedTitleText
+      });
+
+      final query = Query<Note>(harness.context)
+        ..where((note) => note.noteId).equalTo(1);
+      final note = await query.fetchOne();
+
+      expect(note.bodyText, updatedBodyText);
+      expect(note.headerText, updatedTitleText);
+      expect(note.noteId, 1);
+    });
+  });
 }

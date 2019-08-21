@@ -8,7 +8,7 @@ class Note extends StatefulWidget {
   final NotesUiModel model;
 
   Note({@required this.note, @required this.model});
- 
+
   @override
   _NoteState createState() => _NoteState();
 }
@@ -49,9 +49,9 @@ class _NoteState extends State<Note> {
             ),
           ),
           Padding(
-            child: Row(
-              children: <Widget>[Text(widget.note.bodyText)],
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: Text(
+              widget.note.bodyText,
+              textAlign: TextAlign.left,
             ),
             padding: EdgeInsets.all(8),
           ),
@@ -86,6 +86,7 @@ class _NoteState extends State<Note> {
                                   _noteTitleController.text,
                                   _noteBodyController.text,
                                 );
+                                Navigator.pop(context);
                               },
                               noteTitleController: _noteTitleController,
                               noteBodyController: _noteBodyController,

@@ -55,4 +55,24 @@ class NotesController extends ResourceController {
       );
     }
   }
+
+  @Operation.put()
+  Future<Response> updateNote() async {
+    final updateNote = Note()..read(await request.body.decode());
+
+    if (updateNote.headerText == null ||
+        updateNote.bodyText == null ||
+        updateNote.noteId == null) {
+      return Response.badRequest();
+    }
+
+    final query = Query<Note>(context)
+      ..values.headerText = updateNote.headerText
+      ..values.bodyText = updateNote.bodyText
+      ..where((note) => note.noteId).equalTo(updateNote.noteId);
+
+    await query.updateOne();
+
+    return Response.ok(updateNote);
+  }
 }

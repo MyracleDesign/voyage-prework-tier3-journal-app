@@ -110,10 +110,13 @@ class ApiService {
       Uri(
         host: host,
         port: port,
-        path: '/notes/$noteId',
+        path: '/notes',
         scheme: scheme,
       ),
-      headers: {"content-type": 'application/json'},
+      headers: {
+        "content-type": 'application/json',
+        "Authorization": "Bearer ${authModel.accessToken}"
+      },
       body: json.encode({
         "noteId": noteId,
         "headerText": headerText,

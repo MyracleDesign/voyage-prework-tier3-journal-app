@@ -38,12 +38,12 @@ class NotesUiModel extends BaseModel {
     var updateNote = await _apiService.updateNote(noteId, headerText, bodyText);
     setBusy(false);
 
-    var newNotes;
+    List<NoteModel> newNotes = [];
     notes.forEach((note) {
       if (note.noteId == noteId) {
-        newNotes.push(updateNote);
+        newNotes.add(updateNote);
       } else {
-        newNotes.push(note);
+        newNotes.add(note);
       }
     });
 
