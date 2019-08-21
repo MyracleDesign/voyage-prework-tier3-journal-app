@@ -2,7 +2,7 @@ import 'package:client/ui/model/notes.ui-model.dart';
 import 'package:flutter_web/cupertino.dart';
 import 'package:flutter_web/material.dart';
 
-import '../../note.dart';
+import 'note.widget.dart';
 
 class NoteList extends StatelessWidget {
   final NotesUiModel model;

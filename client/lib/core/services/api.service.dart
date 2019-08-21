@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:client/model/auth.model.dart';
-import 'package:client/model/note.model.dart';
-import 'package:client/model/user.model.dart';
+import 'package:client/core/model/auth.model.dart';
+import 'package:client/core/model/note.model.dart';
+import 'package:client/core/model/user.model.dart';
 import 'package:http/http.dart';
 
 class ApiService {

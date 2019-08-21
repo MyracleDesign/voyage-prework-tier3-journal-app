@@ -1,6 +1,6 @@
-import 'package:client/model/base.model.dart';
-import 'package:client/model/note.model.dart';
-import 'package:client/services/api.service.dart';
+import 'package:client/core/model/base.model.dart';
+import 'package:client/core/model/note.model.dart';
+import 'package:client/core/services/api.service.dart';
 import 'package:flutter_web/cupertino.dart';
 
 class NotesUiModel extends BaseModel {

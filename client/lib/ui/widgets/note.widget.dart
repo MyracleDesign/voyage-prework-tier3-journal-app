@@ -1,5 +1,6 @@
-import 'package:client/model/note.model.dart';
+import 'package:client/core/model/note.model.dart';
 import 'package:client/ui/model/notes.ui-model.dart';
+import 'package:client/ui/widgets/dialog/note-edit.dialog.dart';
 import 'package:flutter_web/material.dart';
 
 class Note extends StatelessWidget {
@@ -66,6 +67,11 @@ class Note extends StatelessWidget {
                       style: TextStyle(color: Color(0xff017bff)),
                     ),
                     onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return NoteEditDialog();
+                          });
                       print("Pressed Edit");
                     },
                   ),

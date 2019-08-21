@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:client/model/user.model.dart';
-import 'package:client/services/api.service.dart';
+import 'package:client/core/model/user.model.dart';
+import 'package:client/core/services/api.service.dart';
 
 class AuthService {
   final ApiService _api;

@@ -1,5 +1,5 @@
-import 'package:client/model/user.model.dart';
-import 'package:client/note-form.dart';
+import 'package:client/core/model/user.model.dart';
+import 'package:client/ui/widgets/note-form.widget.dart';
 import 'package:client/ui/model/notes.ui-model.dart';
 import 'package:client/ui/widgets/base.widget.dart';
 import 'package:client/ui/widgets/note-list.widget.dart';
