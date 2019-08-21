@@ -104,6 +104,30 @@ class ApiService {
     }
   }
 
+  Future<NoteModel> updateNote(
+      int noteId, String headerText, String bodyText) async {
+    final response = await put(
+      Uri(
+        host: host,
+        port: port,
+        path: '/notes/$noteId',
+        scheme: scheme,
+      ),
+      headers: {"content-type": 'application/json'},
+      body: json.encode({
+        "noteId": noteId,
+        "headerText": headerText,
+        "bodyText": bodyText,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return NoteModel.fromJson(json.decode(response.body));
+    } else {
+      throw Exception("Failed to update the note");
+    }
+  }
+
   Future<bool> deleteNote(int noteId) async {
     final response = await delete(
       Uri(

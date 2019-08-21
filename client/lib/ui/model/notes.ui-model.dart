@@ -32,4 +32,21 @@ class NotesUiModel extends BaseModel {
       notes.removeWhere((noteModel) => noteModel.noteId == noteId);
     }
   }
+
+  Future updateNote(int noteId, String headerText, String bodyText) async {
+    setBusy(true);
+    var updateNote = await _apiService.updateNote(noteId, headerText, bodyText);
+    setBusy(false);
+
+    var newNotes;
+    notes.forEach((note) {
+      if (note.noteId == noteId) {
+        newNotes.push(updateNote);
+      } else {
+        newNotes.push(note);
+      }
+    });
+
+    notes = newNotes;
+  }
 }

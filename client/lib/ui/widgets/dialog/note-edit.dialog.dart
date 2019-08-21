@@ -1,6 +1,16 @@
 import 'package:flutter_web/material.dart';
 
 class NoteEditDialog extends StatelessWidget {
+  final noteTitleController;
+  final noteBodyController;
+  final onSave;
+
+  NoteEditDialog({
+    this.noteBodyController,
+    this.noteTitleController,
+    this.onSave,
+  });
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -8,12 +18,13 @@ class NoteEditDialog extends StatelessWidget {
         content: Form(
           child: Container(
             width: MediaQuery.of(context).size.width * 0.6,
-            height: MediaQuery.of(context).size.width * 0.8,
+            height: MediaQuery.of(context).size.height * 0.6,
             child: Column(
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
+                    controller: noteTitleController,
                     decoration: InputDecoration(
                       hintText: "Note Title",
                     ),
@@ -22,12 +33,12 @@ class NoteEditDialog extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
+                    controller: noteBodyController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "Note Body",
                     ),
                     keyboardType: TextInputType.multiline,
-                    maxLines: 8,
                   ),
                 )
               ],
@@ -43,7 +54,7 @@ class NoteEditDialog extends StatelessWidget {
           ),
           FlatButton(
             child: Text("Save"),
-            onPressed: () {},
+            onPressed: onSave,
           )
         ]);
   }
