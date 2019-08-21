@@ -1,17 +1,27 @@
-import 'package:client/model/note.model.dart';
+import 'package:client/core/model/note.model.dart';
 import 'package:client/ui/model/notes.ui-model.dart';
+import 'package:client/ui/widgets/dialog/note-edit.dialog.dart';
 import 'package:flutter_web/material.dart';
 
-class Note extends StatelessWidget {
+class Note extends StatefulWidget {
   final NoteModel note;
   final NotesUiModel model;
 
   Note({@required this.note, @required this.model});
 
   @override
+  _NoteState createState() => _NoteState();
+}
+
+class _NoteState extends State<Note> {
+  @override
   Widget build(BuildContext context) {
+    var _noteTitleController =
+        TextEditingController(text: widget.note.headerText);
+    var _noteBodyController = TextEditingController(text: widget.note.bodyText);
+
     return Card(
-      key: ValueKey(note.noteId),
+      key: ValueKey(widget.note.noteId),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0))),
@@ -30,7 +40,7 @@ class Note extends StatelessWidget {
             child: Padding(
               child: Row(
                 children: <Widget>[
-                  Text(note.headerText,
+                  Text(widget.note.headerText,
                       style: TextStyle(color: Colors.black, fontSize: 36.0)),
                 ],
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -39,9 +49,9 @@ class Note extends StatelessWidget {
             ),
           ),
           Padding(
-            child: Row(
-              children: <Widget>[Text(note.bodyText)],
-              mainAxisAlignment: MainAxisAlignment.start,
+            child: Text(
+              widget.note.bodyText,
+              textAlign: TextAlign.left,
             ),
             padding: EdgeInsets.all(8),
           ),
@@ -66,7 +76,22 @@ class Note extends StatelessWidget {
                       style: TextStyle(color: Color(0xff017bff)),
                     ),
                     onPressed: () {
-                      print("Pressed Edit");
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return NoteEditDialog(
+                              onSave: () {
+                                widget.model.updateNote(
+                                  widget.note.noteId,
+                                  _noteTitleController.text,
+                                  _noteBodyController.text,
+                                );
+                                Navigator.pop(context);
+                              },
+                              noteTitleController: _noteTitleController,
+                              noteBodyController: _noteBodyController,
+                            );
+                          });
                     },
                   ),
                   FlatButton(
@@ -75,7 +100,7 @@ class Note extends StatelessWidget {
                       style: TextStyle(color: Colors.red),
                     ),
                     onPressed: () {
-                      model.deleteNote(note.noteId);
+                      widget.model.deleteNote(widget.note.noteId);
                     },
                   ),
                 ],

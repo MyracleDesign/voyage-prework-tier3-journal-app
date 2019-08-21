@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:client/model/note.model.dart';
-import 'package:client/services/api.service.dart';
+import 'package:client/core/model/note.model.dart';
+import 'package:client/core/services/api.service.dart';
 
 class NotesService {
   final ApiService _api;

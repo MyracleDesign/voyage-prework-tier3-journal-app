@@ -19,9 +19,6 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Register"),
-      ),
       body: BaseWidget<RegisterUiModel>(
         model: RegisterUiModel(authService: Provider.of(context)),
         child: RegisterWidget(

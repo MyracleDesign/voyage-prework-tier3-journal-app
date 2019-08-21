@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:client/model/auth.model.dart';
-import 'package:client/model/note.model.dart';
-import 'package:client/model/user.model.dart';
+import 'package:client/core/model/auth.model.dart';
+import 'package:client/core/model/note.model.dart';
+import 'package:client/core/model/user.model.dart';
 import 'package:http/http.dart';
 
 class ApiService {
@@ -101,6 +101,33 @@ class ApiService {
       return NoteModel.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to create a note');
+    }
+  }
+
+  Future<NoteModel> updateNote(
+      int noteId, String headerText, String bodyText) async {
+    final response = await put(
+      Uri(
+        host: host,
+        port: port,
+        path: '/notes',
+        scheme: scheme,
+      ),
+      headers: {
+        "content-type": 'application/json',
+        "Authorization": "Bearer ${authModel.accessToken}"
+      },
+      body: json.encode({
+        "noteId": noteId,
+        "headerText": headerText,
+        "bodyText": bodyText,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return NoteModel.fromJson(json.decode(response.body));
+    } else {
+      throw Exception("Failed to update the note");
     }
   }
 

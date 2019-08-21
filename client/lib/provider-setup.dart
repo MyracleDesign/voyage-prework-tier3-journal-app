@@ -1,6 +1,6 @@
-import 'package:client/model/user.model.dart';
-import 'package:client/services/api.service.dart';
-import 'package:client/services/auth.service.dart';
+import 'package:client/core/model/user.model.dart';
+import 'package:client/core/services/api.service.dart';
+import 'package:client/core/services/auth.service.dart';
 import 'package:provider/provider.dart';
 
 List<SingleChildCloneableWidget> providers = [

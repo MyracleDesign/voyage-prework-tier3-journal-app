@@ -1,5 +1,5 @@
-import 'package:client/model/base.model.dart';
-import 'package:client/services/auth.service.dart';
+import 'package:client/core/model/base.model.dart';
+import 'package:client/core/services/auth.service.dart';
 import 'package:flutter_web/foundation.dart';
 
 class LoginUiModel extends BaseModel {
