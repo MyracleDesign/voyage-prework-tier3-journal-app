@@ -1,6 +1,6 @@
-import 'package:client/model/base.model.dart';
-import 'package:client/model/note.model.dart';
-import 'package:client/services/api.service.dart';
+import 'package:client/core/model/base.model.dart';
+import 'package:client/core/model/note.model.dart';
+import 'package:client/core/services/api.service.dart';
 import 'package:flutter_web/cupertino.dart';
 
 class NotesUiModel extends BaseModel {
@@ -26,9 +26,27 @@ class NotesUiModel extends BaseModel {
   Future deleteNote(int noteId) async {
     setBusy(true);
     var deletedNote = await _apiService.deleteNote(noteId);
+    setBusy(false);
+
     if (deletedNote) {
       notes.removeWhere((noteModel) => noteModel.noteId == noteId);
     }
+  }
+
+  Future updateNote(int noteId, String headerText, String bodyText) async {
+    setBusy(true);
+    var updateNote = await _apiService.updateNote(noteId, headerText, bodyText);
     setBusy(false);
+
+    List<NoteModel> newNotes = [];
+    notes.forEach((note) {
+      if (note.noteId == noteId) {
+        newNotes.add(updateNote);
+      } else {
+        newNotes.add(note);
+      }
+    });
+
+    notes = newNotes;
   }
 }

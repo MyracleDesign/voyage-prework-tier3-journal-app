@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:client/model/auth.model.dart';
-import 'package:client/model/note.model.dart';
-import 'package:client/model/user.model.dart';
+import 'package:client/core/model/auth.model.dart';
+import 'package:client/core/model/note.model.dart';
+import 'package:client/core/model/user.model.dart';
 import 'package:http/http.dart';
 
 class ApiService {
@@ -104,6 +104,33 @@ class ApiService {
     }
   }
 
+  Future<NoteModel> updateNote(
+      int noteId, String headerText, String bodyText) async {
+    final response = await put(
+      Uri(
+        host: host,
+        port: port,
+        path: '/notes',
+        scheme: scheme,
+      ),
+      headers: {
+        "content-type": 'application/json',
+        "Authorization": "Bearer ${authModel.accessToken}"
+      },
+      body: json.encode({
+        "noteId": noteId,
+        "headerText": headerText,
+        "bodyText": bodyText,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return NoteModel.fromJson(json.decode(response.body));
+    } else {
+      throw Exception("Failed to update the note");
+    }
+  }
+
   Future<bool> deleteNote(int noteId) async {
     final response = await delete(
       Uri(
@@ -117,5 +144,25 @@ class ApiService {
     return response.statusCode == 200
         ? true
         : throw Exception("Failed to delete $noteId Note");
+  }
+
+  Future<User> registerWithUsernamePassword(
+      String username, String password) async {
+    final response = await post(
+      Uri(
+        host: host,
+        port: port,
+        path: '/register',
+        scheme: scheme,
+      ),
+      headers: {"content-type": 'application/json'},
+      body: json.encode({"username": username, "password": password}),
+    );
+
+    if (response.statusCode == 200) {
+      return User.fromJson(json.decode(response.body));
+    } else {
+      throw Exception('Failed to register');
+    }
   }
 }
