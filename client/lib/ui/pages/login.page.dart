@@ -34,67 +34,100 @@ class _LoginPageState extends State<LoginPage> {
               child: ListView(
                 shrinkWrap: true,
                 children: <Widget>[
-                  Container(
-                    height: 500,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF1e4b60),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black,
-                            offset: Offset(5, 5),
-                            blurRadius: 10.0,
-                            spreadRadius: -5.0)
-                      ],
-                    ),
-                    padding: EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        child,
-                        SizedBox(
-                          width: 300,
-                          child: RaisedButton(
-                              color: Color(0xFF4fdbc1),
-                              child: Text(
-                                'Login',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              onPressed: () async {
-                                if (_formKey.currentState.validate()) {
-                                  var loginSuccess = await model.login(
-                                    _usernameController.text,
-                                    _passwordController.text,
-                                  );
-                                  if (loginSuccess) {
-                                    _usernameController.clear();
-                                    _passwordController.clear();
-                                    await Navigator.pushNamed(
-                                        context, RoutePaths.Home);
-                                  }
-                                }
-                              }),
-                        ),
-                        SizedBox(
-                          width: 300,
-                          child: RaisedButton(
-                            color: Color(0xFF4fdbc1),
-                            child: Text(
-                              "Register",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, RoutePaths.Register);
-                            },
-                          ),
-                        )
-                      ],
-                    ),
+                  LoginPageContent(
+                    child: child,
+                    model: model,
+                    formKey: _formKey,
+                    usernameController: _usernameController,
+                    passwordController: _passwordController,
                   )
                 ],
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class LoginPageContent extends StatelessWidget {
+  final child;
+  final model;
+  final formKey;
+  final usernameController;
+  final passwordController;
+
+  LoginPageContent({
+    this.child,
+    this.model,
+    this.formKey,
+    this.usernameController,
+    this.passwordController,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 500,
+      decoration: BoxDecoration(
+        color: Color(0xFF1e4b60),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black,
+              offset: Offset(5, 5),
+              blurRadius: 10.0,
+              spreadRadius: -5.0)
+        ],
+      ),
+      padding: EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          child,
+          SizedBox(
+            width: 300,
+            child: RaisedButton(
+                color: Color(0xFF4fdbc1),
+                child: Text(
+                  'Login',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () async {
+                  if (formKey.currentState.validate()) {
+                    var loginSuccess = await model.login(
+                      usernameController.text,
+                      passwordController.text,
+                    );
+                    if (loginSuccess) {
+                      usernameController.clear();
+                      passwordController.clear();
+                      await Navigator.pushNamed(context, RoutePaths.Home);
+                    } else {
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              "Username or Password was wrong, please try again."),
+                        ),
+                      );
+                    }
+                  }
+                }),
+          ),
+          SizedBox(
+            width: 300,
+            child: RaisedButton(
+              color: Color(0xFF4fdbc1),
+              child: Text(
+                "Register",
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, RoutePaths.Register);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
