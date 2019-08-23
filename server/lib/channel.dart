@@ -15,7 +15,8 @@ class ServerChannel extends ApplicationChannel {
   Future prepare() async {
     CORSPolicy.defaultPolicy.allowedOrigins = [
       "http://127.0.0.1:8080",
-      "http://localhost:8080"
+      "http://localhost:8080",
+      "https://digital-journal-client.herokuapp.com/"
     ];
 
     logger.onRecord.listen(
