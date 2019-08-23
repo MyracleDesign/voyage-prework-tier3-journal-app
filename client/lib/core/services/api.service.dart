@@ -6,11 +6,10 @@ import 'package:client/core/model/user.model.dart';
 import 'package:http/http.dart';
 
 class ApiService {
-  static final host = 'localhost';
-  static final port = 8888;
-  static final scheme = 'http';
+  static final host = 'digital-journal-api.herokuapp.com';
+  static final scheme = 'https';
   static final clientId = "com.myracledesign.flutter_web_digital_journal";
-  static final secret = "";
+  static final secret = "flutter-digital-journal-secret";
   AuthModel authModel;
 
   final clientCredentials =
@@ -22,7 +21,6 @@ class ApiService {
     var response = await post(
         Uri(
           host: host,
-          port: port,
           path: '/auth/token',
           scheme: scheme,
         ),
@@ -48,7 +46,6 @@ class ApiService {
     var response = await get(
       Uri(
         host: host,
-        port: port,
         path: '/userProfile',
         scheme: scheme,
       ),
@@ -63,7 +60,6 @@ class ApiService {
     var response = await get(
         Uri(
           host: host,
-          port: port,
           path: '/notes',
           scheme: scheme,
         ),
@@ -86,7 +82,6 @@ class ApiService {
     final response = await post(
       Uri(
         host: host,
-        port: port,
         path: '/notes',
         scheme: scheme,
       ),
@@ -109,7 +104,6 @@ class ApiService {
     final response = await put(
       Uri(
         host: host,
-        port: port,
         path: '/notes',
         scheme: scheme,
       ),
@@ -135,7 +129,6 @@ class ApiService {
     final response = await delete(
       Uri(
         host: host,
-        port: port,
         path: '/notes/$noteId',
         scheme: scheme,
       ),
@@ -151,7 +144,6 @@ class ApiService {
     final response = await post(
       Uri(
         host: host,
-        port: port,
         path: '/register',
         scheme: scheme,
       ),
