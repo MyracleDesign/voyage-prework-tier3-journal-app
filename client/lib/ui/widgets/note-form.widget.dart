@@ -12,7 +12,7 @@ class NoteForm extends StatelessWidget {
     var titleController = TextEditingController();
     var bodyController = TextEditingController();
     return Card(
-      color: Color(0xFF0B3346),
+      color: Color(0xFF376379),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Form(
@@ -49,11 +49,12 @@ class NoteForm extends StatelessWidget {
                     controller: bodyController,
                     maxLines: 4,
                     decoration: InputDecoration(
-                        labelText: "Body",
-                        labelStyle: TextStyle(color: Colors.white),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                        ),),
+                      labelText: "Body",
+                      labelStyle: TextStyle(color: Colors.white),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                    ),
                   ))
                 ],
               ),
@@ -64,7 +65,7 @@ class NoteForm extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         "Use the form above to create a post. Make sure you fill the required title and body fields and press submit.",
-                        style: TextStyle(color: Color(0xff65A882)),
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
@@ -78,7 +79,7 @@ class NoteForm extends StatelessWidget {
                       "Submit",
                       style: TextStyle(color: Colors.white),
                     ),
-                    color: Color(0xFF65A882),
+                    color: Color(0xFF021E2C),
                     onPressed: () {
                       model.createNote(
                           titleController.text, bodyController.text);

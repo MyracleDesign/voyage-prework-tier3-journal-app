@@ -22,9 +22,6 @@ class _NoteState extends State<Note> {
 
     return Card(
       key: ValueKey(widget.note.noteId),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0))),
       child: Column(
         children: <Widget>[
           Container(

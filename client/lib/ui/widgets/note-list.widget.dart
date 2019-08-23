@@ -11,14 +11,35 @@ class NoteList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return model.busy
-        ? Center(child: CircularProgressIndicator())
-        : model.notes.isEmpty
-            ? Text("There are no current Notes")
-            : Column(
-                children: [
-                  for (var note in model.notes) Note(note: note, model: model)
-                ],
-              );
+    return Card(
+      color: Color(0xFF376379),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Your Journal",
+                style: TextStyle(color: Colors.black, fontSize: 36.0),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: model.busy
+                  ? Center(child: CircularProgressIndicator())
+                  : model.notes.isEmpty
+                      ? Text("There are no current Notes")
+                      : Column(
+                          children: [
+                            for (var note in model.notes)
+                              Note(note: note, model: model)
+                          ],
+                        ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

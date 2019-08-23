@@ -19,17 +19,13 @@ class MyHomePage extends StatelessWidget {
       ),
       backgroundColor: Color(0xFF4fdbc1),
       body: Padding(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.fromLTRB(0, 8, 8, 0),
         child: BaseWidget(
           model: NotesUiModel(apiService: Provider.of(context)),
           onModelReady: (model) => model.getNotes(),
           builder: (context, model, child) => ListView(
             children: <Widget>[
               NoteForm(model: model),
-              Text(
-                "Your Journal",
-                style: TextStyle(color: Colors.black, fontSize: 36.0),
-              ),
               NoteList(model: model),
             ],
           ),
