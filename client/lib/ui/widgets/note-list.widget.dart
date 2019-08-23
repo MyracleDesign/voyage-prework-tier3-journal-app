@@ -11,16 +11,14 @@ class NoteList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: model.busy
-            ? Center(child: CircularProgressIndicator())
-            : model.notes.isEmpty
-                ? Text("There are no current Notes")
-                : ListView(
-                    children: [
-                      for (var note in model.notes)
-                        Note(note: note, model: model)
-                    ],
-                  ));
+    return model.busy
+        ? Center(child: CircularProgressIndicator())
+        : model.notes.isEmpty
+            ? Text("There are no current Notes")
+            : Column(
+                children: [
+                  for (var note in model.notes) Note(note: note, model: model)
+                ],
+              );
   }
 }

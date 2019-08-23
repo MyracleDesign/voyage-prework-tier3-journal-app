@@ -13,30 +13,18 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(
+        title: Text(title),
+        backgroundColor: Color(0xFF1e4b60),
+      ),
       backgroundColor: Color(0xFF4fdbc1),
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: BaseWidget(
           model: NotesUiModel(apiService: Provider.of(context)),
           onModelReady: (model) => model.getNotes(),
-          builder: (context, model, child) => Column(
+          builder: (context, model, child) => ListView(
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  RichText(
-                    text: TextSpan(
-                        text: "Digital Journal ",
-                        style: TextStyle(color: Colors.black, fontSize: 36.0),
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: "| Create a note",
-                              style: TextStyle(
-                                  color: Color(0xff767e86), fontSize: 24.0))
-                        ]),
-                  ),
-                ],
-              ),
               NoteForm(model: model),
               Text(
                 "Your Journal",

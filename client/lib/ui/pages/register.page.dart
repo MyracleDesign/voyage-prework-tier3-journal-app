@@ -22,9 +22,10 @@ class _RegisterPageState extends State<RegisterPage> {
       body: BaseWidget<RegisterUiModel>(
         model: RegisterUiModel(authService: Provider.of(context)),
         child: RegisterWidget(
-            passwordController: passwordController,
-            passwordValidationController: passwordValidationController,
-            usernameController: usernameController),
+          passwordController: passwordController,
+          passwordValidationController: passwordValidationController,
+          usernameController: usernameController,
+        ),
         builder: (context, model, child) => Container(
           decoration: BoxDecoration(color: Color(0xFF4edac0)),
           child: Center(
@@ -40,7 +41,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           color: Colors.black,
                           offset: Offset(5, 5),
                           blurRadius: 10.0,
-                          spreadRadius: -5.0)
+                          spreadRadius: -5.0),
                     ],
                   ),
                   padding: EdgeInsets.all(8.0),
@@ -54,12 +55,23 @@ class _RegisterPageState extends State<RegisterPage> {
                       SizedBox(
                         width: 300,
                         child: RaisedButton(
-                          color: Color(0xFF4fdbc1),
+                          color: Color(0xFF65A882),
                           onPressed: () async {
-                            if (_formKey.currentState.validate()) {
+                            var password = passwordController.text;
+                            var passwordValidation =
+                                passwordValidationController.text;
+                            if (password != passwordValidation) {
+                              Scaffold.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "Password and validation are not identical",
+                                  ),
+                                ),
+                              );
+                            } else if (_formKey.currentState.validate()) {
                               var user = await model.registerNewUser(
                                 usernameController.text,
-                                passwordController.text,
+                                password,
                               );
                               if (user != null) {
                                 await Navigator.popAndPushNamed(
@@ -76,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       SizedBox(
                         width: 300,
                         child: RaisedButton(
-                          color: Color(0xFF4fdbc1),
+                          color: Color(0xFF65A882),
                           child: Text(
                             "Back to login",
                             style: TextStyle(color: Colors.white),

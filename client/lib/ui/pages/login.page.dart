@@ -88,7 +88,7 @@ class LoginPageContent extends StatelessWidget {
           SizedBox(
             width: 300,
             child: RaisedButton(
-                color: Color(0xFF4fdbc1),
+                color: Color(0xFF65A882),
                 child: Text(
                   'Login',
                   style: TextStyle(color: Colors.white),
@@ -117,7 +117,7 @@ class LoginPageContent extends StatelessWidget {
           SizedBox(
             width: 300,
             child: RaisedButton(
-              color: Color(0xFF4fdbc1),
+              color: Color(0xFF65A882),
               child: Text(
                 "Register",
                 style: TextStyle(color: Colors.white),
