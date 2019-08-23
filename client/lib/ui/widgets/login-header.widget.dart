@@ -55,7 +55,7 @@ class Headline extends StatelessWidget {
         Text(
           "Digital ",
           style: TextStyle(
-            color: Colors.lightBlueAccent,
+            color: Colors.blueAccent,
             fontSize: 32.0,
           ),
         ),

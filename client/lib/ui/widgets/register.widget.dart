@@ -7,10 +7,11 @@ class RegisterWidget extends StatelessWidget {
   final TextEditingController passwordValidationController;
   final TextEditingController usernameController;
 
-  RegisterWidget(
-      {@required this.passwordController,
-      @required this.passwordValidationController,
-      @required this.usernameController});
+  RegisterWidget({
+    @required this.passwordController,
+    @required this.passwordValidationController,
+    @required this.usernameController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +33,21 @@ class RegisterWidget extends StatelessWidget {
         Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("Register", style: TextStyle(color: Colors.white))),
-        LoginTextField(usernameController, "Username", false),
-        LoginTextField(passwordController, "Password", true),
         LoginTextField(
-            passwordValidationController, "Please repeat your Password", true),
+          usernameController,
+          "Username",
+          false,
+        ),
+        LoginTextField(
+          passwordController,
+          "Password",
+          true,
+        ),
+        LoginTextField(
+          passwordValidationController,
+          "Please repeat your Password",
+          true,
+        ),
       ],
     );
   }
