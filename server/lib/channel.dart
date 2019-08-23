@@ -16,8 +16,18 @@ class ServerChannel extends ApplicationChannel {
     CORSPolicy.defaultPolicy.allowedOrigins = [
       "http://127.0.0.1:8080",
       "http://localhost:8080",
-      "https://digital-journal-client.herokuapp.com/"
+      "https://digital-journal-client.herokuapp.com"
     ];
+
+    CORSPolicy.defaultPolicy.allowedMethods = [
+      "POST",
+      "GET",
+      "PUT",
+      "DELETE",
+      "OPTIONS"
+    ];
+
+    CORSPolicy.defaultPolicy.allowCredentials = true;
 
     logger.onRecord.listen(
         (rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
