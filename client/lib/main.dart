@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Digital Journal',
         theme: ThemeData(primarySwatch: Colors.blue, fontFamily: "Roboto"),
-        initialRoute: RoutePaths.Register,
+        initialRoute: RoutePaths.Login,
         onGenerateRoute: Router.generateRoute,
         home: MyHomePage(title: 'Flutter Digital Journal - Chingu Prework'),
       ),
